@@ -6,12 +6,13 @@ import java.util.List;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.kakao.pay.exception.ExceptionURLShortener;
 import com.kakao.pay.shortening.service.ShortenerManagerImpl;
 
 @SpringBootApplication
 public class DemoApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ExceptionURLShortener {
 		SpringApplication.run(DemoApplication.class, args);
 		ShortenerManagerImpl m = new ShortenerManagerImpl();
 		

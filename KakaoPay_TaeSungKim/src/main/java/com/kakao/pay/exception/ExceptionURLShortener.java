@@ -11,9 +11,6 @@ public class ExceptionURLShortener extends Exception {
 	protected ExceptionLevel level;
 	
 	protected Exception e;
-	public ExceptionURLShortener() {
-		super();
-	}
 
 	public ExceptionURLShortener(ErrorCode code) {
 		super(getMessage(code));

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kakao.pay.exception.ExceptionURLShortener;
 import com.kakao.pay.shortening.service.ShortenerManager;
 @Controller
 public class ShortenerController {
@@ -30,13 +31,20 @@ public class ShortenerController {
 	}
 	
 	@PostMapping("/convert")
-	public ModelAndView receiveUrl(@RequestParam String urlvalue) {
-		
-		String resultURL = shortenerManager.shortenURL(urlvalue);
-		
+	public ModelAndView receiveUrl(@RequestParam String urlvalue) throws ExceptionURLShortener {
+		StringBuffer resultURL = new StringBuffer();
 		ModelAndView mv = new ModelAndView();
+		String msg;
 		mv.setViewName("/index");
-		mv.addObject("result_url", "http://localhost:8080/" + resultURL);
+		try {
+			resultURL.append(shortenerManager.shortenURL(urlvalue));
+			msg = resultURL.toString();
+		}
+		catch(ExceptionURLShortener e) {
+			msg = e.getMessage();
+		}
+
+		mv.addObject("result_url", msg);
 		return mv;
 	}
 }

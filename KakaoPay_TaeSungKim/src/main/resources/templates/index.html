@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>URL줄이기</title>
+</head>
+<body>
+    <form th:action="@{/convert}" method="post">
+        <input type="text" name="urlvalue" th:value = '${urlvalue}'/>
+        <button>제출</button>
+        
+        <div th:text = '${result_url}'></div>        
+    </form>     
+</body>
+</html>

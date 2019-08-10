@@ -1,9 +1,12 @@
 package com.kakao.pay.shortening.service;
 
+import org.springframework.stereotype.Component;
+
 import com.kakao.pay.shortening.shortener.BaseURLShortener;
 import com.kakao.pay.shortening.shortener.URLRandomShortener;
 import com.kakao.pay.shortening.store.ShortenerStoreImpl;
 
+@Component
 public class ShortenerManagerImpl implements ShortenerManager{
 	protected BaseURLShortener shortener;
 	protected ShortenerStoreImpl store;

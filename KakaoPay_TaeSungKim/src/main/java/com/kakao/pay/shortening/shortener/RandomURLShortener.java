@@ -8,6 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+/**
+ * RandomURLShortener Class
+ * URL Shortening시 keyLength만큼 랜덤으로 추출
+ * 
+ * @author tskim
+ */
 public class RandomURLShortener extends BaseURLShortener{
 	private Random myRand;
 	

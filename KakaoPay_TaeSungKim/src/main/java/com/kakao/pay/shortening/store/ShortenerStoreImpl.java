@@ -1,13 +1,17 @@
 package com.kakao.pay.shortening.store;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Component;
 
-import com.kakao.pay.shortening.shortener.BaseURLShortener;
 
+/**
+ * ShortenerStoreImpl Class
+ * URL 저장하기위한 Store
+ * 
+ * @author tskim
+ */
 @Component
 public class ShortenerStoreImpl implements UrlKeyValueStore{
 	protected Map<String, String> keyMap;

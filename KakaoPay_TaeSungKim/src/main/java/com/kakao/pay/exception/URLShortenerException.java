@@ -1,7 +1,12 @@
 package com.kakao.pay.exception;
 
-
-public class ExceptionURLShortener extends Exception {
+/**
+ * URLShortenerException Class
+ * URL Shortening함에 있어 예외처리.
+ * 
+ * @author tskim
+ */
+public class URLShortenerException extends RuntimeException {
 	public enum ExceptionLevel{
 		NONE, ERROR, WARRING, IGNONE
 	}
@@ -12,7 +17,7 @@ public class ExceptionURLShortener extends Exception {
 	
 	protected Exception e;
 
-	public ExceptionURLShortener(ErrorCode code) {
+	public URLShortenerException(ErrorCode code) {
 		super(getMessage(code));
 
 		switch(code) {

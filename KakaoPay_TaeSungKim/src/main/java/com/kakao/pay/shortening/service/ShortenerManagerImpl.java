@@ -6,11 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.kakao.pay.exception.ExceptionURLShortener;
-import com.kakao.pay.exception.ExceptionURLShortener.ErrorCode;
+import com.kakao.pay.exception.URLShortenerException;
+import com.kakao.pay.exception.URLShortenerException.ErrorCode;
 import com.kakao.pay.shortening.shortener.BaseURLShortener;
 import com.kakao.pay.shortening.store.ShortenerStoreImpl;
 
+/**
+ * ShortenerManagerImpl Class
+ * URLShorening을 하기위한 매니저 클래스
+ * URL 검사 및 저장 저장된 원본URL로 변경된 URL찾기 기능
+ * 
+ * @author tskim
+ */
 @Component
 public class ShortenerManagerImpl implements ShortenerManager{
 	
@@ -27,17 +34,19 @@ public class ShortenerManagerImpl implements ShortenerManager{
 	private final String https = "HTTPS://";
 
 	@Override
-	public String shortenURL(String originURL) throws ExceptionURLShortener {
-		if(!validateURL(originURL)) {
-			throw new ExceptionURLShortener(ErrorCode.U001);
+	public String shortenURL(String originalURL) throws URLShortenerException {
+		if(!validateURL(originalURL)) {
+			throw new URLShortenerException(ErrorCode.U001);
 		}
-		
+		if(store.containsValue(originalURL)) {
+			return store.getShortenerURL(originalURL);
+		}
 		StringBuilder key = new StringBuilder();
 		key.append(DOMAIN).append("/");
 
 		key.append(shortener.generateKey());
 		while(store.containsKey(key.toString())) key.append(shortener.generateKey());
-		store.add(key.toString(), originURL);
+		store.add(key.toString(), originalURL);
 		
 		return key.toString();
 	}

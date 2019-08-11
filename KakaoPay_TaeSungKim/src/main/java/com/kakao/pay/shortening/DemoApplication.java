@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.kakao.pay.exception.ExceptionURLShortener;
+import com.kakao.pay.exception.URLShortenerException;
 import com.kakao.pay.shortening.service.ShortenerManagerImpl;
 import com.kakao.pay.shortening.store.ShortenerStoreImpl;
 
@@ -24,8 +24,9 @@ public class DemoApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		store.add("1111", "http://www.naver.com");
-		store.add("2222", "https://github.com");
+		store.add("http://localhost:8080/1", "https://www.kakaopay.com");
+		store.add("http://localhost:8080/2", "http://daum.net");
+		store.add("http://localhost:8080/3", "http://naver.com");
 	}
 
 }

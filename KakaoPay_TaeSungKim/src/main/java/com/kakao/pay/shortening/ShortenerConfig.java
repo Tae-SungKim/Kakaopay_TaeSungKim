@@ -1,4 +1,4 @@
-package com.kakao.pay.shortening.service;
+package com.kakao.pay.shortening;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +8,12 @@ import com.kakao.pay.shortening.shortener.BaseURLShortener;
 import com.kakao.pay.shortening.shortener.RandomURLShortener;
 import com.kakao.pay.shortening.shortener.URLShortener;
 
+/**
+ * ShortenerConfig Class
+ * Controller
+ * 
+ * @author tskim
+ */
 @Configuration
 public class ShortenerConfig {
 	@Value("${shortener.url}")

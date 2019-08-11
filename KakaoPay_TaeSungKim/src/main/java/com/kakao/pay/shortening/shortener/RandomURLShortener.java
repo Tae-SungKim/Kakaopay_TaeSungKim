@@ -8,10 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-@Component("URLRandomShortener")
-public class URLRandomShortener extends BaseURLShortener{
+public class RandomURLShortener extends BaseURLShortener{
 	private Random myRand;
-	public URLRandomShortener() {
+	
+	public RandomURLShortener(int keyLength) {
+		super(keyLength);
 		myRand = new Random();
 	}
 	
@@ -19,8 +20,8 @@ public class URLRandomShortener extends BaseURLShortener{
 	public String generateKey() {
 		StringBuffer key = new StringBuffer();
 
-		for (int i = 0; i <= keyLength; i++) {
-			key.append(key62.charAt(myRand.nextInt(62)));
+		for (int i = 0; i <= getKeyLength(); i++) {
+			key.append(getKey62().charAt(myRand.nextInt(62)));
 		}
 		return key.toString();
 	}

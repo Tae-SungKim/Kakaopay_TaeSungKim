@@ -4,10 +4,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-@Component("URLShortener")
 public class URLShortener extends BaseURLShortener{
 	private long idx;
-	public URLShortener() {
+	
+	public URLShortener(int keyLength) {
+		super(keyLength);
 		idx = 0;
 	}
 
@@ -18,13 +19,14 @@ public class URLShortener extends BaseURLShortener{
 		int iResult[] = new int[32];
 		int max_len = Long.toString(value).length();
 		int idx = 0;
-		for(; value > 0; value = value / key62.length()) {
-			int q = (int) value % key62.length();
+		int length = Integer.valueOf(getKeyLength()).toString().length();
+		for(; value > 0; value = value / length) {
+			int q = (int) value % length;
 			iResult[--max_len] = q;
 			idx++;
 		}
 		for(int i = max_len; i < max_len + idx; i++) {
-			result.append(key62.charAt(iResult[i]));
+			result.append(getKey62().charAt(iResult[i]));
 		}
 		
 		return result.toString().replaceAll("^0+", "");

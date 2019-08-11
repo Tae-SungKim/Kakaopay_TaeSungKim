@@ -2,9 +2,13 @@ package com.kakao.pay.shortening.shortener;
 
 import java.util.Random;
 
+import javax.annotation.Resource;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("URLRandomShortener")
 public class URLRandomShortener extends BaseURLShortener{
 	private Random myRand;
 	public URLRandomShortener() {

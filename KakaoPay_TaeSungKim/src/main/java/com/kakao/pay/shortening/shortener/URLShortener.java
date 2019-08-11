@@ -1,8 +1,10 @@
 package com.kakao.pay.shortening.shortener;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("URLShortener")
 public class URLShortener extends BaseURLShortener{
 	private long idx;
 	public URLShortener() {

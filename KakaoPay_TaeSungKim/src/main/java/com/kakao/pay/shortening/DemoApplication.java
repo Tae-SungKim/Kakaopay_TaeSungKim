@@ -3,37 +3,29 @@ package com.kakao.pay.shortening;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.kakao.pay.exception.ExceptionURLShortener;
 import com.kakao.pay.shortening.service.ShortenerManagerImpl;
+import com.kakao.pay.shortening.store.ShortenerStoreImpl;
 
 @SpringBootApplication
-public class DemoApplication {
+public class DemoApplication implements CommandLineRunner{
 
-	public static void main(String[] args) throws ExceptionURLShortener {
+	@Autowired
+	private ShortenerStoreImpl store;
+	
+	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
-		ShortenerManagerImpl m = new ShortenerManagerImpl();
-		
-		List<String> shortURL = new ArrayList<String>();
-		
-		String temp = m.shortenURL("http://naver.com");
-		shortURL.add(temp);
-		temp = m.shortenURL("http://google.com");
-		shortURL.add(temp);
-		temp = m.shortenURL("http://daum.com");
-		shortURL.add(temp);
-		temp = m.shortenURL("http://kakao.com");
-		shortURL.add(temp);
-		for(String str : shortURL) {
-			StringBuffer b = new StringBuffer();
-			b.append("ShortURL : ");
-			b.append(str);
-			b.append(" OriginalURL : ");
-			b.append(m.originalURL(str));
-			System.out.println(b.toString());
-		}
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		store.add("1111", "http://www.naver.com");
+		store.add("2222", "https://github.com");
 	}
 
 }

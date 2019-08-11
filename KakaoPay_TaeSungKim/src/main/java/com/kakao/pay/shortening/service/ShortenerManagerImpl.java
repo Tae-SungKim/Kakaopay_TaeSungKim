@@ -1,5 +1,9 @@
 package com.kakao.pay.shortening.service;
 
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.kakao.pay.exception.ExceptionURLShortener;
@@ -10,22 +14,28 @@ import com.kakao.pay.shortening.store.ShortenerStoreImpl;
 
 @Component
 public class ShortenerManagerImpl implements ShortenerManager{
-	protected BaseURLShortener shortener;
-	protected ShortenerStoreImpl store;
-	protected final String http = "HTTP://";
-	protected final String https = "HTTPS://";
-	protected String domain;
+	@Resource(name="URLRandomShortener")
+	private BaseURLShortener shortener;
+	@Autowired
+	private ShortenerStoreImpl store;
+	
+	private final String http = "HTTP://";
+	private final String https = "HTTPS://";
+
+	private ShortenerConfig config;
 	
 	public ShortenerManagerImpl() {
-		shortener = new URLRandomShortener();
-		store = new ShortenerStoreImpl();
-		domain = "http://localhost:8080";
-		shortener.setKeyLength(8);
+		//shortener = new URLRandomShortener();
+		//store = new ShortenerStoreImpl();
+		shortener = config.getShortener();
+		shortener.setKeyLength(config.getKeyLength());
 	}
+	
+
 	@Override
 	public String shortenURL(String originURL) throws ExceptionURLShortener {
 		StringBuffer key = new StringBuffer();
-		key.append(domain).append("/");
+		key.append(config.getDomain()).append("/");
 		if(validateURL(originURL)) {
 			key.append(shortener.generateKey());
 			while(store.containsKey(key.toString())) key.append(shortener.generateKey());
